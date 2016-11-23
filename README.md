@@ -2,9 +2,57 @@
 
 ###### Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+```swift
+import NetworkSDK
+import ObjectMapper
+```
 
-## Requirements
+some configurations:
+```swift
+Network.defaultHeader = ["a": "b", "c": "d"]
+Network.baseURL = "http://192.168.199.173"
+```
+
+use objectMapper, create a model:
+```swift
+struct Options: Mappable {
+  var imageUri: String?
+  var message: String?
+  var dataPath: String?
+  var userUri: String?
+  var status: String?
+  var dataVersion: String?
+  var bizUri: String?
+
+  init?(map: Map) {
+
+  }
+
+  mutating func mapping(map: Map) {
+    imageUri    <- map["imageUri"]
+    message     <- map["message"]
+    dataPath    <- map["dataPath"]
+    userUri     <- map["userUri"]
+    status      <- map["status"]
+    dataVersion <- map["dataVersion"]
+    bizUri      <- map["bizUri"]
+  }
+}
+
+```
+
+then, fire:
+
+```swift
+let request = NetworkRequest<Options>("call.json")
+
+request.send {
+  if let option = $0 {
+    print(option.toJSON())
+  } else {
+    print($1 ?? Error())
+}
+```
 
 ###### Installation
 
@@ -13,6 +61,12 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod "NetworkSDK"
+```
+
+dependency version: 
+```ruby
+dependency 'ObjectMapper', '~> 2.2.1'
+dependency 'Alamofire', '~> 4.1.0'
 ```
 
 ###### Author
