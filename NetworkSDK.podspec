@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'NetworkSDK'
-s.version          = '0.1.7'
+s.version          = '0.1.8'
 s.summary          = 'Network with object mapping and request queue.'
 
 s.description      = <<-DESC
