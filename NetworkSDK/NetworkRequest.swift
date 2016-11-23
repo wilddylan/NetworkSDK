@@ -17,27 +17,27 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// HTTP Request parameters, default nil
   ///
   /// - Returns: A dictionary of parameters to apply to a `URLRequest`.
-  public var parameters: [String : Any]? = nil
+  open var parameters: [String : Any]? = nil
 
   /// HTTP Request path, class, struct, enum must implements this method
   ///
   /// - Returns: String like `/path`, `/usr/create`
-  public var path: String = ""
+  open var path: String = ""
 
   /// HTTP Base url, class, struct, enum must implements this method
   ///
   /// - Returns: String like `http://example.com`
-  public var baseURL: String = Network.baseURL
+  open var baseURL: String = Network.baseURL
 
   /// HTTP Request header, default nil, use HTTPHeaders type from `Alamofire`
   ///
   /// - Returns: [String: String]
-  public var header: [String : String]? = nil
+  open var header: [String : String]? = nil
 
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
   ///
   /// - Returns: enum HTTPMethod
-  public var method: Methods = .get
+  open var method: Methods = .get
 
   /// Network result handler
   public typealias NetworkHandler = (T?, Error?) ->Swift.Void
@@ -64,6 +64,11 @@ open class NetworkRequest<T: Mappable>: Requestable {
     }
   }
 
+
+  /// Return URLRequest
+  ///
+  /// - Returns: URLRequest
+  /// - Throws: When caught error
   open func asURLRequest() throws -> URLRequest {
     guard let baseURL = try? self.baseURL.asURL() else {
       return URLRequest(url: URL(string: "error://url is nil")!)

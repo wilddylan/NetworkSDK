@@ -48,6 +48,13 @@ public protocol Requestable: URLRequestConvertible {
 /// - get: GET
 /// - post: POST
 public enum Methods: String {
-  case get = "GET"
-  case post = "POST"
+  case options = "OPTIONS"
+  case get     = "GET"
+  case head    = "HEAD"
+  case post    = "POST"
+  case put     = "PUT"
+  case patch   = "PATCH"
+  case delete  = "DELETE"
+  case trace   = "TRACE"
+  case connect = "CONNECT"
 }
