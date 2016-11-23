@@ -14,7 +14,7 @@ Network with object mapping and muti task queue.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'NetworkSDK/**/*.swift'
+  s.source_files = 'NetworkSDK/*.swift'
 
   s.frameworks = 'UIKit', 'Foundation'
   s.dependency 'ObjectMapper', '~> 2.2.1'
