@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double NetworkVersionNumber;
-FOUNDATION_EXPORT const unsigned char NetworkVersionString[];
+FOUNDATION_EXPORT double NetworkSDKVersionNumber;
+FOUNDATION_EXPORT const unsigned char NetworkSDKVersionString[];
 
