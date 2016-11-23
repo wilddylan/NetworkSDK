@@ -7,10 +7,10 @@ Pod::Spec.new do |s|
 Network with object mapping and muti task queue.
                        DESC
 
-  s.homepage         = 'https://github.com/WildDylan/Network'
+  s.homepage         = 'https://github.com/WildDylan/NetworkSDK'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Dylan' => 'dylan@china.com' }
-  s.source           = { :git => 'https://github.com/WildDylan/Network.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/WildDylan/NetworkSDK.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
 
