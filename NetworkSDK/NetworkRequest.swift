@@ -88,6 +88,13 @@ open class NetworkRequest<T: Mappable>: Requestable {
     return try URLEncoding.default.encode(urlRequest, with: self.parameters)
   }
 
+
+  /// Initialize a requestable instance
+  ///
+  /// - Parameters:
+  ///   - path: API path, will relativeTo to baseURL
+  ///   - method: defult is .get
+  ///   - parameter: default is nil
   public init(_ path: String, _ method: Methods = .get, _ parameter: [String: Any]? = nil) {
     self.path = path
     self.parameters = parameter

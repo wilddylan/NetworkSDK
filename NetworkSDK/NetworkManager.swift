@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+
+/// Network engin provider
 public class NetworkManager {
 
   /// default network instance
@@ -38,6 +40,9 @@ public class NetworkManager {
     return manager
   }
 
+  /// Use this manager replace the current manager
+  ///
+  /// - Parameter manager: Alamofire.SessionManager
   public func setManager(_ manager: Alamofire.SessionManager) {
     sessionManager = manager
     delegate = sessionManager.delegate

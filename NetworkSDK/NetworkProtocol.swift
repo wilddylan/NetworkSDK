@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+
+/// Requestable
 public protocol Requestable: URLRequestConvertible {
 
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
