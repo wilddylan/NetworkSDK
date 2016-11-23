@@ -15,7 +15,7 @@
 		C5DDD25CECB581CDDDC509D5 /* Pods_Network_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1B2D9E5FC7519A26C9DF71 /* Pods_Network_ExampleTests.framework */; };
 		CE6940A453259DEE2875813F /* Pods_Network_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EF01E166830D9A526F7103 /* Pods_Network_Example.framework */; };
 		FCFC4E751DE55CB9002BCFD5 /* Network_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC4E741DE55CB9002BCFD5 /* Network_ExampleTests.swift */; };
-		FCFC4E7D1DE571A0002BCFD5 /* NetworkSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FCFC4E7C1DE571A0002BCFD5 /* NetworkSDK.podspec */; };
+		FCFC4E861DE577D7002BCFD5 /* NetworkSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FCFC4E851DE577D7002BCFD5 /* NetworkSDK.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		FCFC4E721DE55CB8002BCFD5 /* Network_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Network_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCFC4E741DE55CB9002BCFD5 /* Network_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network_ExampleTests.swift; sourceTree = "<group>"; };
 		FCFC4E761DE55CB9002BCFD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCFC4E7C1DE571A0002BCFD5 /* NetworkSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetworkSDK.podspec; sourceTree = "<group>"; };
+		FCFC4E851DE577D7002BCFD5 /* NetworkSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NetworkSDK.podspec; path = ../NetworkSDK.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +142,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				FCFC4E7C1DE571A0002BCFD5 /* NetworkSDK.podspec */,
+				FCFC4E851DE577D7002BCFD5 /* NetworkSDK.podspec */,
 				F848A145DEC2BEB99DBFF8EC /* README.md */,
 				55F2C20C53C17B0A21807F27 /* LICENSE */,
 			);
@@ -250,7 +250,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				FCFC4E7D1DE571A0002BCFD5 /* NetworkSDK.podspec in Resources */,
+				FCFC4E861DE577D7002BCFD5 /* NetworkSDK.podspec in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
