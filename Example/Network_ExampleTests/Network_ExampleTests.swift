@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Network
+import NetworkSDK
 import ObjectMapper
 
 class Network_ExampleTests: XCTestCase {
