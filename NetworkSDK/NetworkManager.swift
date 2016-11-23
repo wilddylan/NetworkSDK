@@ -15,12 +15,25 @@ public class NetworkManager {
   public static let `default` = NetworkManager()
 
   /// Session manager
-  public let sessionManager: Alamofire.SessionManager
+  public var sessionManager: Alamofire.SessionManager
 
   /// default header add to every request
   public var defaultHeader: [String: String] = [:]
 
   public var baseURL: String = ""
+
+
+  /// Listen Network state
+  /// - code: 
+  /// manager?.listener = { status in
+  ///     print("Network Status Changed: \(status)")
+  /// }
+  /// - Returns: NetworkReachabilityManager instance
+  public func NetState() ->NetworkReachabilityManager? {
+    let manager = NetworkReachabilityManager(host: baseURL)
+    manager?.startListening()
+    return manager
+  }
 
   ///
   private init() {
