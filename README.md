@@ -56,6 +56,12 @@ request.send {
 }
 ```
 
+code above will send request like: 
+
+```
+http://192.168.199.173/call.json
+```
+
 ###### Installation
 
 Network is available through [CocoaPods](http://cocoapods.org). To install
