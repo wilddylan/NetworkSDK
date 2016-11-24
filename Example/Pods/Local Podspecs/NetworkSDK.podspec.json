@@ -1,6 +1,6 @@
 {
   "name": "NetworkSDK",
-  "version": "0.1.8",
+  "version": "0.2.0-beta",
   "summary": "Network with object mapping and request queue.",
   "description": "Network with object mapping and muti task queue.",
   "homepage": "https://github.com/WildDylan/NetworkSDK",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/WildDylan/NetworkSDK.git",
-    "tag": "0.1.8"
+    "tag": "0.2.0-beta"
   },
   "platforms": {
     "ios": "8.0"
