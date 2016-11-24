@@ -17,7 +17,7 @@ public class NetworkManager {
   public static let `default` = NetworkManager()
 
   /// Session manager
-  private(set) public var sessionManager: Alamofire.SessionManager
+  private(set) public var sessionManager: Alamofire.SessionManager?
 
   /// default header add to every request
   public var defaultHeader: [String: String] = [:]
@@ -26,7 +26,7 @@ public class NetworkManager {
   public var baseURL: String = ""
 
   /// Session delegate
-  private(set) public var delegate: Alamofire.SessionDelegate
+  private(set) public var delegate: Alamofire.SessionDelegate?
 
   /// Listen Network state
   /// - code: 
@@ -45,20 +45,44 @@ public class NetworkManager {
   /// - Parameter manager: Alamofire.SessionManager
   public func setManager(_ manager: Alamofire.SessionManager) {
     sessionManager = manager
-    delegate = sessionManager.delegate
+    delegate = sessionManager?.delegate
   }
 
+  /// Set an secure session manager
+  /// Sample code to get certificates:
+  /// let certificates = ServerTrustPolicy.certificates(in: Bundle.main)
+  /// let keys = ServerTrustPolicy.publicKeys(in: Bundle.main)
+  /// let tupple = zip(keys, certificates)
+
+  /// for (key, value) in tupple {
+  ///   print("\(key) \(value)")
+  /// }
   ///
-  private init() {
+  /// let sectrustManager = ServerTrustPolicyManager(policies: [Network.baseURL: ServerTrustPolicy.pinCertificates(certificates: certificates, validateCertificateChain: false, validateHost: false)])
+  /// - Parameters:
+  ///   - sectrustManager: Responsible for managing the mapping of `ServerTrustPolicy` objects to a given host.
+  public func setSecureManager(_ sectrustManager: ServerTrustPolicyManager) {
+    commonInit(sectrustManager)
+  }
+
+  /// Common Init sessionManager
+  ///
+  /// - Parameter sectrustManager: Responsible for managing the mapping of `ServerTrustPolicy` objects to a given host.
+  private func commonInit(_ sectrustManager: ServerTrustPolicyManager?) {
     var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
     defaultHeaders["sdk-version-info"] = "NetworkSDK-0.1.8"
 
     let configuration = URLSessionConfiguration.default
     configuration.httpCookieAcceptPolicy = .always
     configuration.httpAdditionalHeaders = defaultHeaders
+ 
+    sessionManager = Alamofire.SessionManager(configuration: configuration, delegate: SessionDelegate(), serverTrustPolicyManager: sectrustManager)
+    delegate = sessionManager?.delegate
+  }
 
-    sessionManager = Alamofire.SessionManager(configuration: configuration)
-    delegate = sessionManager.delegate
+  ///
+  private init() {
+    commonInit(nil)
   }
 }
 

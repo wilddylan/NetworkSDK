@@ -52,7 +52,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
   ///   - progress: (Progress) ->Swift.Void
   @discardableResult
   open func send(_ handler: @escaping NetworkHandler) ->DataRequest{
-    return Network.sessionManager.request(self).responseJSON {
+    return Network.sessionManager!.request(self).responseJSON {
       switch $0.result {
       case .success(let value):
         handler(Mapper<T>().map(JSONObject: value), nil)
