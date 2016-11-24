@@ -14,6 +14,9 @@ import ObjectMapper
 /// Network request base class
 open class NetworkRequest<T: Mappable>: Requestable {
 
+  /// HTTP Request option - pre type var
+  public var type: NetworkOption = .data
+
   /// HTTP Request parameters, default nil
   ///
   /// - Returns: A dictionary of parameters to apply to a `URLRequest`.

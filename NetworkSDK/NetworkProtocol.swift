@@ -42,6 +42,10 @@ public protocol Requestable: URLRequestConvertible {
   /// - Returns: A dictionary of parameters to apply to a `URLRequest`.
   var parameters: [String: Any]? { get set }
 
+
+  /// HTTP Request option
+  var type: NetworkOption { get set }
+
 }
 
 
@@ -59,4 +63,16 @@ public enum Methods: String {
   case delete  = "DELETE"
   case trace   = "TRACE"
   case connect = "CONNECT"
+}
+
+
+/// NetworkOption - indicates request type, default is data request
+///
+/// - data: Normally data request
+/// - download: download request
+/// - upload: upload request
+public enum NetworkOption {
+  case data
+  case download
+  case upload
 }
