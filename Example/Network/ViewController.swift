@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     Network.defaultHeader = ["token": "MTMwODg0ODgyODgxMjM0NTk4NzY1YQ=="]
     Network.baseURL = "http://localhost:3000"
 
+    Network.setSecureManager(ServerTrustPolicyManager(policies: ["": ServerTrustPolicy.disableEvaluation]))
+
     NetworkRequest<User>("user.json").send { object, error in print(object?.name ?? "") }
       .responseJSON { print($0.result.value ?? "") }
       .downloadProgress { print($0.fractionCompleted) }

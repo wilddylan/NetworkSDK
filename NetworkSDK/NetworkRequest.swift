@@ -43,6 +43,10 @@ open class NetworkRequest<T: Mappable>: Requestable {
   open var method: Methods = .get
 
   /// Network result handler
+  ///
+  /// - Parameters:
+  ///   - T: Mappable type
+  ///   - Error: Response error
   public typealias NetworkHandler = (T?, Error?) ->Swift.Void
 
   /// Network response progress
