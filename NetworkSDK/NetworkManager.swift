@@ -29,10 +29,13 @@ public class NetworkManager {
   private(set) public var delegate: Alamofire.SessionDelegate?
 
   /// Listen Network state
-  /// - code: 
+  ///
+  /// ```swift
   /// manager?.listener = { status in
   ///     print("Network Status Changed: \(status)")
   /// }
+  /// ```
+  ///
   /// - Returns: NetworkReachabilityManager instance
   public func NetState() ->NetworkReachabilityManager? {
     let manager = NetworkReachabilityManager(host: baseURL)
@@ -49,16 +52,19 @@ public class NetworkManager {
   }
 
   /// Set an secure session manager
-  /// Sample code to get certificates:
+  /// 
+  /// ```swift
   /// let certificates = ServerTrustPolicy.certificates(in: Bundle.main)
   /// let keys = ServerTrustPolicy.publicKeys(in: Bundle.main)
   /// let tupple = zip(keys, certificates)
-
+  ///
   /// for (key, value) in tupple {
   ///   print("\(key) \(value)")
   /// }
   ///
   /// let sectrustManager = ServerTrustPolicyManager(policies: [Network.baseURL: ServerTrustPolicy.pinCertificates(certificates: certificates, validateCertificateChain: false, validateHost: false)])
+  /// ```
+  ///
   /// - Parameters:
   ///   - sectrustManager: Responsible for managing the mapping of `ServerTrustPolicy` objects to a given host.
   public func setSecureManager(_ sectrustManager: ServerTrustPolicyManager) {
@@ -80,7 +86,6 @@ public class NetworkManager {
     delegate = sessionManager?.delegate
   }
 
-  ///
   private init() {
     commonInit(nil)
   }

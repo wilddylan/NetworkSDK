@@ -53,6 +53,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// - Parameters:
   ///   - handler: (T?, Error?) ->Swift.Void
   ///   - progress: (Progress) ->Swift.Void
+  /// - Returns: Specific type of `Request` that manages an underlying `URLSessionDataTask`.
   @discardableResult
   open func send(_ handler: @escaping NetworkHandler) ->DataRequest{
     return Network.sessionManager!.request(self).responseJSON {
