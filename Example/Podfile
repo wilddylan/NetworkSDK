@@ -1,9 +1,0 @@
-use_frameworks!
-
-target 'Network_Example' do
-  pod 'NetworkSDK', :path => '../'
-
-  target 'Network_ExampleTests' do
-    inherit! :search_paths
-  end
-end
