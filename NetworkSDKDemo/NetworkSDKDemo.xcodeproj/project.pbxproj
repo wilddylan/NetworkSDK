@@ -17,6 +17,7 @@
 		FC4CD34F1DEBEF7000AA540F /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CD34B1DEBEF7000AA540F /* NetworkModel.swift */; };
 		FC4CD3501DEBEF7000AA540F /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CD34C1DEBEF7000AA540F /* NetworkProtocol.swift */; };
 		FC4CD3511DEBEF7000AA540F /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CD34D1DEBEF7000AA540F /* NetworkRequest.swift */; };
+		FC4CD3531DEBFB0200AA540F /* NetworkSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FC4CD3521DEBFB0200AA540F /* NetworkSDK.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FC4CD34B1DEBEF7000AA540F /* NetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		FC4CD34C1DEBEF7000AA540F /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		FC4CD34D1DEBEF7000AA540F /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		FC4CD3521DEBFB0200AA540F /* NetworkSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NetworkSDK.podspec; path = ../NetworkSDK.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		FC4CD32B1DEBEF2300AA540F = {
 			isa = PBXGroup;
 			children = (
+				FC4CD3521DEBFB0200AA540F /* NetworkSDK.podspec */,
 				FC4CD3361DEBEF2300AA540F /* NetworkSDKDemo */,
 				FC4CD3351DEBEF2300AA540F /* Products */,
 				44CAE3CC2FCB475DCEB2ED92 /* Pods */,
@@ -174,6 +177,7 @@
 			files = (
 				FC4CD3421DEBEF2300AA540F /* LaunchScreen.storyboard in Resources */,
 				FC4CD33F1DEBEF2300AA540F /* Assets.xcassets in Resources */,
+				FC4CD3531DEBFB0200AA540F /* NetworkSDK.podspec in Resources */,
 				FC4CD33D1DEBEF2300AA540F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
