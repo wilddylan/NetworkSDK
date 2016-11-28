@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NetworkManager Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/NetworkManager" class="dashAnchor"></a>
+    <a title="NetworkManager Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/WildDylan/NetworkSDK"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fwww%2Edevdylan%2Ecn%2FNetworkSDK%2F0%2E2%2E0%2Dbeta%2Fapi%2Fdocsets%2F%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        NetworkManager Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkManager.html">NetworkManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkModel.html">NetworkModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkRequest.html">NetworkRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViewController.html">ViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v14NetworkSDKDemo7NetworkCS_14NetworkManager">Network</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Methods.html">Methods</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NetworkOption.html">NetworkOption</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Requestable.html">Requestable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NetworkManager</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">NetworkManager</span></code></pre>
+
+                </div>
+              </div>
+            <p>Network engin provider</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC14NetworkSDKDemo14NetworkManager7defaultS0_"></a>
+                    <a name="//apple_ref/swift/Variable/default" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC14NetworkSDKDemo14NetworkManager7defaultS0_">default</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>default network instance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">let</span> <span class="err">`</span><span class="k">default</span><span class="err">`</span> <span class="o">=</span> <span class="kt">NetworkManager</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14NetworkSDKDemo14NetworkManager14sessionManagerERR"></a>
+                    <a name="//apple_ref/swift/Property/sessionManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14NetworkSDKDemo14NetworkManager14sessionManagerERR">sessionManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Session manager</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">Alamofire</span><span class="o">.</span><span class="kt">SessionManager</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14NetworkSDKDemo14NetworkManager13defaultHeaderGVs10DictionarySSSS_"></a>
+                    <a name="//apple_ref/swift/Property/defaultHeader" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14NetworkSDKDemo14NetworkManager13defaultHeaderGVs10DictionarySSSS_">defaultHeader</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>default header add to every request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">defaultHeader</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14NetworkSDKDemo14NetworkManager7baseURLSS"></a>
+                    <a name="//apple_ref/swift/Property/baseURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14NetworkSDKDemo14NetworkManager7baseURLSS">baseURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>base url</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14NetworkSDKDemo14NetworkManager8delegateERR"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14NetworkSDKDemo14NetworkManager8delegateERR">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Session delegate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">Alamofire</span><span class="o">.</span><span class="kt">SessionDelegate</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14NetworkSDKDemo14NetworkManager8NetStateERR"></a>
+                    <a name="//apple_ref/swift/Method/NetState()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14NetworkSDKDemo14NetworkManager8NetStateERR">NetState()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Listen Network state</p>
+
+<pre class="highlight swift"><code><span class="n">manager</span><span class="p">?</span><span class="o">.</span><span class="n">listener</span> <span class="o">=</span> <span class="p">{</span> <span class="n">status</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Network Status Changed: </span><span class="se">\(</span><span class="n">status</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    NetworkReachabilityManager instance
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="kt">NetState</span><span class="p">()</span> <span class="o">-&gt;</span><span class="kt">NetworkReachabilityManager</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>NetworkReachabilityManager instance</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14NetworkSDKDemo14NetworkManager10setManagerERR"></a>
+                    <a name="//apple_ref/swift/Method/setManager(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14NetworkSDKDemo14NetworkManager10setManagerERR">setManager(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Use this manager replace the current manager</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter manager: Alamofire.SessionManager
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">Alamofire</span><span class="o">.</span><span class="kt">SessionManager</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>manager</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Alamofire.SessionManager</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14NetworkSDKDemo14NetworkManager16setSecureManagerERR"></a>
+                    <a name="//apple_ref/swift/Method/setSecureManager(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14NetworkSDKDemo14NetworkManager16setSecureManagerERR">setSecureManager(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set an secure session manager</p>
+
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">certificates</span> <span class="o">=</span> <span class="kt">ServerTrustPolicy</span><span class="o">.</span><span class="nf">certificates</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="kt">Bundle</span><span class="o">.</span><span class="n">main</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">keys</span> <span class="o">=</span> <span class="kt">ServerTrustPolicy</span><span class="o">.</span><span class="nf">publicKeys</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="kt">Bundle</span><span class="o">.</span><span class="n">main</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">tupple</span> <span class="o">=</span> <span class="nf">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">certificates</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">in</span> <span class="n">tupple</span> <span class="p">{</span>
+  <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">key</span><span class="se">)</span><span class="s"> </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">sectrustManager</span> <span class="o">=</span> <span class="kt">ServerTrustPolicyManager</span><span class="p">(</span><span class="nv">policies</span><span class="p">:</span> <span class="p">[</span><span class="kt">Network</span><span class="o">.</span><span class="nv">baseURL</span><span class="p">:</span> <span class="kt">ServerTrustPolicy</span><span class="o">.</span><span class="nf">pinCertificates</span><span class="p">(</span><span class="nv">certificates</span><span class="p">:</span> <span class="n">certificates</span><span class="p">,</span> <span class="nv">validateCertificateChain</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">validateHost</span><span class="p">:</span> <span class="kc">false</span><span class="p">)])</span>
+</code></pre>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>sectrustManager: Responsible for managing the mapping of <code>ServerTrustPolicy</code> objects to a given host.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setSecureManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">sectrustManager</span><span class="p">:</span> <span class="kt">ServerTrustPolicyManager</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectrustManager</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Responsible for managing the mapping of <code>ServerTrustPolicy</code> objects to a given host.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>dylan</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

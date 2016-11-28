@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/WildDylan/NetworkSDK"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fwww%2Edevdylan%2Ecn%2FNetworkSDK%2F0%2E2%2E0%2Dbeta%2Fapi%2Fdocsets%2F%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+          Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkManager.html">NetworkManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkModel.html">NetworkModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkRequest.html">NetworkRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ViewController.html">ViewController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:v14NetworkSDKDemo7NetworkCS_14NetworkManager">Network</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/Methods.html">Methods</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/NetworkOption.html">NetworkOption</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/Requestable.html">Requestable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <a href='#network' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='network'>Network</h1>
+
+<p><a href="https://opensource.org/licenses/mit-license.php"><img src="https://badges.frapsoft.com/os/mit/mit.svg?v=103" alt="MIT Licence"></a></p>
+<a href='#example' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h6 id='example'>Example</h6>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">NetworkSDK</span>
+<span class="kd">import</span> <span class="kt">ObjectMapper</span>
+</code></pre>
+
+<p>some configurations:
+<code>swift
+Network.defaultHeader = [&quot;a&quot;: &quot;b&quot;, &quot;c&quot;: &quot;d&quot;]
+Network.baseURL = &quot;http://192.168.199.173&quot;
+</code></p>
+
+<p>use objectMapper, create a model:
+&ldquo;`swift
+struct Options: Mappable {
+  var imageUri: String?
+  var message: String?
+  var dataPath: String?
+  var userUri: String?
+  var status: String?
+  var dataVersion: String?
+  var bizUri: String?</p>
+
+<p>init?(map: Map) {</p>
+
+<p>}</p>
+
+<p>mutating func mapping(map: Map) {
+    imageUri    &lt;- map[<q>imageUri</q>]
+    message     &lt;- map[<q>message</q>]
+    dataPath    &lt;- map[<q>dataPath</q>]
+    userUri     &lt;- map[<q>userUri</q>]
+    status      &lt;- map[<q>status</q>]
+    dataVersion &lt;- map[<q>dataVersion</q>]
+    bizUri      &lt;- map[<q>bizUri</q>]
+  }
+}</p>
+<pre class="highlight plaintext"><code>
+then, fire:
+
+```swift
+let request = NetworkRequest&lt;Options&gt;("call.json")
+
+request.send {
+  if let option = $0 {
+    print(option.toJSON())
+  } else {
+    print($1 ?? Error())
+}
+</code></pre>
+
+<p>code above will send request like: </p>
+<pre class="highlight plaintext"><code>http://192.168.199.173/call.json
+</code></pre>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h6 id='installation'>Installation</h6>
+
+<p>Network is available through <a href="http://cocoapods.org">CocoaPods</a>. To install
+it, simply add the following line to your Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"NetworkSDK"</span>
+</code></pre>
+
+<p>dependency version: 
+<code>ruby
+dependency &#39;ObjectMapper&#39;, &#39;~&gt; 2.2.1&#39;
+dependency &#39;Alamofire&#39;, &#39;~&gt; 4.1.0&#39;
+</code></p>
+<a href='#author' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h6 id='author'>Author</h6>
+
+<p>Dylan, <a href="mailto:dylan@china.com">dylan@china.com</a></p>
+<a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h6 id='license'>License</h6>
+
+<p>Network is available under the MIT license. See the LICENSE file for more info.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>dylan</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
