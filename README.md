@@ -62,6 +62,10 @@ code above will send request like:
 http://192.168.199.173/call.json
 ```
 
+###### API docs
+
+[docs](http://www.devdylan.cn/NetworkSDK/0.2.0-beta/api/)
+
 ###### Installation
 
 Network is available through [CocoaPods](http://cocoapods.org). To install
