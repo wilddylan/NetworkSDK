@@ -50,6 +50,9 @@ public protocol Requestable: URLRequestConvertible {
   ///
   /// - Returns: Bool value, default is true
   func httpShouldHandleCookies() -> Bool
+
+  /// Cancel request
+  func cancel() -> Swift.Void
 }
 
 extension Requestable {

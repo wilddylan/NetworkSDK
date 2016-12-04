@@ -32,6 +32,8 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
   open var method: Methods = .get
 
+  private(set) public var dataRequest: DataRequest?
+
   /// Network result handler
   ///
   /// - Parameters:
@@ -50,7 +52,8 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// - Returns: Specific type of `Request` that manages an underlying `URLSessionDataTask`.
   @discardableResult
   open func send(_ handler: @escaping NetworkHandler) ->DataRequest{
-    return Network.sessionManager!.request(self).responseJSON {
+    dataRequest = Network.sessionManager!.request(self)
+    dataRequest!.responseJSON {
       switch $0.result {
       case .success(let value):
         if let response = $0.response, let request = $0.request, let data = $0.data {
@@ -72,6 +75,11 @@ open class NetworkRequest<T: Mappable>: Requestable {
         break
       }
     }
+    return dataRequest!
+  }
+
+  public func cancel() {
+    dataRequest?.cancel()
   }
 
   func handleResponse(_ response: HTTPURLResponse, _ request: URLRequest, _ data: Data) {

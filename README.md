@@ -62,8 +62,15 @@ code above will send request like:
 http://192.168.199.173/call.json
 ```
 
+###### Feature
+
+[x] Simple for use
+[x] Custom request 
+[x] Load from URLCache when remote load failed
+
 ###### API docs
 
+> 0.2.1 docs is perparing for publish. 
 [docs](http://www.devdylan.cn/NetworkSDK/0.2.0-beta/api/)
 
 ###### Installation
@@ -72,7 +79,7 @@ Network is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "NetworkSDK"
+pod "NetworkSDK", "~> 0.2.1"
 ```
 
 dependency version: 
