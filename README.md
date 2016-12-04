@@ -64,9 +64,9 @@ http://192.168.199.173/call.json
 
 ###### Feature
 
-[x] Simple for use
-[x] Custom request 
-[x] Load from URLCache when remote load failed
+- [x] Simple for use
+- [x] Custom request 
+- [x] Load from URLCache when remote load failed
 
 ###### API docs
 
