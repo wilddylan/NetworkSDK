@@ -8,14 +8,33 @@
 
 import UIKit
 
+import ObjectMapper
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  class RequesterTested: NetworkModel<Any> {
+    var imageUri: String?
+
+    override func mapping(map: Map) {
+      super.mapping(map: map)
+      imageUri <- map["imageUri"]
+    }
+  }
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+
+    // Base config
+    Network.baseURL = "http://yourcustom host url"
+    Network.defaultHeader = ["key":"will attach to every request"]
+
+    NetworkRequest<RequesterTested>("call.json").send {
+      print($0?.toJSON() ?? "", $1 ?? "")
+    }
+
     return true
   }
 
@@ -40,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
-
-
+  
+  
 }
 

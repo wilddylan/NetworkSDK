@@ -23,10 +23,17 @@ public class NetworkManager {
   public var defaultHeader: [String: String] = [:]
 
   /// base url
-  public var baseURL: String = ""
+  public var baseURL: String = "" {
+    didSet {
+      NetState()
+    }
+  }
 
   /// Session delegate
   private(set) public var delegate: Alamofire.SessionDelegate?
+
+  /// Net state
+  private(set) public var networkState: NetworkReachabilityManager?
 
   /// Listen Network state
   ///
@@ -37,10 +44,15 @@ public class NetworkManager {
   /// ```
   ///
   /// - Returns: NetworkReachabilityManager instance
-  public func NetState() ->NetworkReachabilityManager? {
-    let manager = NetworkReachabilityManager(host: baseURL)
-    manager?.startListening()
-    return manager
+  @discardableResult
+  private func NetState() {
+    if networkState != nil {
+      networkState?.stopListening()
+      networkState = nil
+    }
+
+    networkState = NetworkReachabilityManager(host: baseURL)
+    networkState?.startListening()
   }
 
   /// Use this manager replace the current manager
@@ -75,12 +87,13 @@ public class NetworkManager {
   ///
   /// - Parameter sectrustManager: Responsible for managing the mapping of `ServerTrustPolicy` objects to a given host.
   private func commonInit(_ sectrustManager: ServerTrustPolicyManager?) {
-    var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
-    defaultHeaders["sdk-version-info"] = "NetworkSDK-0.1.8"
+    let defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
 
     let configuration = URLSessionConfiguration.default
     configuration.httpCookieAcceptPolicy = .always
     configuration.httpAdditionalHeaders = defaultHeaders
+    configuration.httpCookieStorage = HTTPCookieStorage.shared
+    configuration.urlCache = URLCache.shared
  
     sessionManager = Alamofire.SessionManager(configuration: configuration, delegate: SessionDelegate(), serverTrustPolicyManager: sectrustManager)
     delegate = sessionManager?.delegate

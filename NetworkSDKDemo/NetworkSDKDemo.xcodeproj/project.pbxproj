@@ -369,6 +369,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 47X3SWHDZ6;
 				INFOPLIST_FILE = NetworkSDKDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dylan.NetworkSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -384,6 +385,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 47X3SWHDZ6;
 				INFOPLIST_FILE = NetworkSDKDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dylan.NetworkSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

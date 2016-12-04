@@ -18,28 +18,18 @@ open class NetworkRequest<T: Mappable>: Requestable {
   public var type: NetworkOption = .data
 
   /// HTTP Request parameters, default nil
-  ///
-  /// - Returns: A dictionary of parameters to apply to a `URLRequest`.
   open var parameters: [String : Any]? = nil
 
   /// HTTP Request path, class, struct, enum must implements this method
-  ///
-  /// - Returns: String like `/path`, `/usr/create`
   open var path: String = ""
 
   /// HTTP Base url, class, struct, enum must implements this method
-  ///
-  /// - Returns: String like `http://example.com`
   open var baseURL: String = Network.baseURL
 
   /// HTTP Request header, default nil, use HTTPHeaders type from `Alamofire`
-  ///
-  /// - Returns: [String: String]
   open var header: [String : String]? = nil
 
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
-  ///
-  /// - Returns: enum HTTPMethod
   open var method: Methods = .get
 
   /// Network result handler
@@ -63,29 +53,59 @@ open class NetworkRequest<T: Mappable>: Requestable {
     return Network.sessionManager!.request(self).responseJSON {
       switch $0.result {
       case .success(let value):
+        if let response = $0.response, let request = $0.request, let data = $0.data {
+          self.handleResponse(response, request, data)
+        }
         handler(Mapper<T>().map(JSONObject: value), nil)
         break
       case .failure(let error):
+        // If with cachepolicy
+        if self.cachePolicy() == .remoteElseLocal {
+          if let cResponse = URLCache.shared.cachedResponse(for: $0.request!) {
+            if let jsonObject = try? JSONSerialization.jsonObject(with: cResponse.data, options: JSONSerialization.ReadingOptions.mutableContainers) {
+              handler(Mapper<T>().map(JSONObject: jsonObject), nil)
+              break
+            }
+          }
+        }
         handler(nil, error)
         break
       }
     }
   }
 
+  func handleResponse(_ response: HTTPURLResponse, _ request: URLRequest, _ data: Data) {
+
+    // cache policy
+    if cachePolicy() == .remoteElseLocal {
+      let cachedResponse = CachedURLResponse(response: response, data: data, userInfo: nil, storagePolicy: .allowed)
+      URLCache.shared.storeCachedResponse(cachedResponse, for: request)
+    }
+
+    // handle cookie
+    if httpShouldHandleCookies() == true {
+      let cookie = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String: String], for: response.url!)
+      HTTPCookieStorage.shared.setCookies(cookie, for: response.url!, mainDocumentURL: request.mainDocumentURL)
+    }
+  }
 
   /// Return URLRequest
   ///
   /// - Returns: URLRequest
   /// - Throws: When caught error
   open func asURLRequest() throws -> URLRequest {
-    guard let baseURL = try? self.baseURL.asURL() else {
+    guard let baseURL = try? baseURL.asURL() else {
       return URLRequest(url: URL(string: "error://url is nil")!)
     }
 
-    var urlRequest = URLRequest(url: URL(string: self.path, relativeTo: baseURL)!)
-    urlRequest.httpMethod = self.method.rawValue
+    var urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
 
-    self.header?.forEach {
+    urlRequest.httpMethod = method.rawValue
+    urlRequest.timeoutInterval = timeout()
+    urlRequest.allowsCellularAccess = allowsCellularAccess()
+    urlRequest.httpShouldHandleCookies = httpShouldHandleCookies()
+
+    header?.forEach {
       urlRequest.addValue($1, forHTTPHeaderField: $0)
     }
 
@@ -93,7 +113,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
       urlRequest.addValue($1, forHTTPHeaderField: $0)
     }
 
-    return try URLEncoding.default.encode(urlRequest, with: self.parameters)
+    return try URLEncoding.default.encode(urlRequest, with: parameters)
   }
 
 
@@ -105,8 +125,12 @@ open class NetworkRequest<T: Mappable>: Requestable {
   ///   - parameter: default is nil
   public init(_ path: String, _ method: Methods = .get, _ parameter: [String: Any]? = nil) {
     self.path = path
-    self.parameters = parameter
     self.method = method
+    self.parameters = parameter
+  }
+
+  private init() {
+
   }
 
 }

@@ -14,37 +14,61 @@ import Alamofire
 public protocol Requestable: URLRequestConvertible {
 
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
-  ///
-  /// - Returns: enum HTTPMethod
   var method: Methods { get set }
 
-
   /// HTTP Request header, default nil, use HTTPHeaders type from `Alamofire`
-  ///
-  /// - Returns: [String: String]
   var header: [String: String]? { get set }
 
-
   /// HTTP Base url, class, struct, enum must implements this method
-  ///
-  /// - Returns: String like `http://example.com`
   var baseURL: String { get set }
 
-
   /// HTTP Request path, class, struct, enum must implements this method
-  ///
-  /// - Returns: String like `/path`, `/usr/create`
   var path: String { get set }
 
-
   /// HTTP Request parameters, default nil
-  ///
-  /// - Returns: A dictionary of parameters to apply to a `URLRequest`.
   var parameters: [String: Any]? { get set }
-
 
   /// HTTP Request option
   var type: NetworkOption { get set }
+
+  /// HTTP Request timeout
+  ///
+  /// - Returns: TimeInterval, default is 15 seconds
+  func timeout() -> TimeInterval
+
+  /// HTTP Request Cache policy, will handled by URLProtocol
+  ///
+  /// - Returns: NetworkCachePolicy, default is none.
+  func cachePolicy() -> NetworkCachePolicy
+
+  /// HTTP Request should send when cellular network
+  ///
+  /// - Returns: Bool value, default is true
+  func allowsCellularAccess() -> Bool
+
+  /// HTTP Request should handle cookies
+  ///
+  /// - Returns: Bool value, default is true
+  func httpShouldHandleCookies() -> Bool
+}
+
+extension Requestable {
+
+  public func timeout() -> TimeInterval {
+    return 15
+  }
+
+  public func cachePolicy() -> NetworkCachePolicy {
+    return .remoteElseLocal
+  }
+
+  public func allowsCellularAccess() -> Bool {
+    return true
+  }
+
+  public func httpShouldHandleCookies() -> Bool {
+    return true
+  }
 
 }
 
@@ -73,6 +97,15 @@ public enum Methods: String {
 /// - upload: upload request
 public enum NetworkOption {
   case data
-  case download
-  case upload
+  case download // Unimplement
+  case upload // Unimplement
+}
+
+/// HTTP Request cache policy
+///
+/// - remoteElseLocal: Remote request with failure will try get data from URLCache
+/// - none: None
+public enum NetworkCachePolicy: String {
+  case remoteElseLocal = "rel"
+  case none = "n"
 }
