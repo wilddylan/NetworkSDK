@@ -178,7 +178,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
   }
 
   open func upload(_ handler: @escaping NetworkHandler, _ progressHandler: @escaping NetworkProgressHandler) ->Swift.Void {
-    guard let data = uploadedData else {
+    guard let data = uploadedData, type == .upload else {
       return
     }
 
