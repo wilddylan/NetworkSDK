@@ -106,6 +106,7 @@ public class NetworkManager {
     delegate = sessionManager?.delegate
   }
 
+  /// Private init
   private init() {
     commonInit(nil)
   }
