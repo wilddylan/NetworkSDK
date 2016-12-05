@@ -90,7 +90,7 @@ downloadRequest.download({
 })
 ```
 
-###### Download upload
+###### Upload request
 
 ```swift
 let multipartdata: (Data, String, String, String) = (data!, "fileData", "a.png", "image/png")
