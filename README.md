@@ -119,7 +119,8 @@ Network.debug = false
 
 ###### API docs
 
-> 0.2.2 docs is perparing for publish. 
+> 0.2.3-beta docs is perparing for publish.
+
 [docs](http://www.devdylan.cn/NetworkSDK/0.2.0-beta/api/)
 
 ###### Installation
@@ -128,7 +129,7 @@ Network is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "NetworkSDK", "~> 0.2.2"
+pod "NetworkSDK", "~> 0.2.3-beta"
 ```
 
 dependency version: 
