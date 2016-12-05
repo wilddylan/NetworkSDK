@@ -124,9 +124,7 @@ Network.debug = false
 
 ###### API docs
 
-> 0.2.3-beta docs is perparing for publish.
-
-[docs](http://www.devdylan.cn/NetworkSDK/0.2.0-beta/api/)
+[docs](http://www.devdylan.cn/NetworkSDK/0.2.3-beta/api/)
 
 ###### Installation
 
