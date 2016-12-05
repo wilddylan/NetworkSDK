@@ -29,6 +29,9 @@ public class NetworkManager {
     }
   }
 
+  /// debug opened
+  public var debug: Bool = true
+
   /// Session delegate
   private(set) public var delegate: Alamofire.SessionDelegate?
 
@@ -94,7 +97,11 @@ public class NetworkManager {
     configuration.httpAdditionalHeaders = defaultHeaders
     configuration.httpCookieStorage = HTTPCookieStorage.shared
     configuration.urlCache = URLCache.shared
- 
+
+    if sessionManager != nil {
+      delegate = nil;
+      sessionManager = nil
+    }
     sessionManager = Alamofire.SessionManager(configuration: configuration, delegate: SessionDelegate(), serverTrustPolicyManager: sectrustManager)
     delegate = sessionManager?.delegate
   }

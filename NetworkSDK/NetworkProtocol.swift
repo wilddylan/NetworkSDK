@@ -29,7 +29,7 @@ public protocol Requestable: URLRequestConvertible {
   var parameters: [String: Any]? { get set }
 
   /// HTTP Request option
-  var type: NetworkOption { get set }
+  var type: NetworkOption { get }
 
   /// HTTP Request timeout
   ///
@@ -58,10 +58,16 @@ public protocol Requestable: URLRequestConvertible {
 extension Requestable {
 
   public func timeout() -> TimeInterval {
-    return 15
+    if type == .data {
+      return 15
+    }
+    return 60 * 5
   }
 
   public func cachePolicy() -> NetworkCachePolicy {
+    if type == .data {
+      return .none
+    }
     return .remoteElseLocal
   }
 

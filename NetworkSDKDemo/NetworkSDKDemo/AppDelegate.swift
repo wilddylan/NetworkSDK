@@ -28,12 +28,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
 
     // Base config
-    Network.baseURL = "http://yourcustom host url"
-    Network.defaultHeader = ["key":"will attach to every request"]
+    Network.baseURL = "http://ocef2grmj.bkt.clouddn.com"
+    Network.debug = false
+//    NetworkRequest<RequesterTested>("").send {
+//      print($0?.toJSON() ?? "", $1 ?? "")
+//    }
 
-    NetworkRequest<RequesterTested>("call.json").send {
-      print($0?.toJSON() ?? "", $1 ?? "")
-    }
+    // http://ocef2grmj.bkt.clouddn.com
+    // LLWeChat-master.zip 75.8MB
+    // 1083748_3.jpg 51.67kb
+    // http://ocef2grmj.bkt.clouddn.com/Group.png
+
+    let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let fileURL = documentURL.appendingPathComponent("b.jpg")
+
+    let downloadRequest = NetworkRequest<NetworkModel<Any>>("Group.png", destination: fileURL, true)
+    downloadRequest.download({
+
+      if $1 == nil { //
+        print($0)
+//        let multipartdata: (Data, String, String, String) = (data!, "fileData", "a.png", "image/png")
+//        let uploadRequest = NetworkRequest<NetworkModel<Any>>("uploadResources.json", [multipartdata], ["category": "HEAD"])
+//        uploadRequest.baseURL = "http://user.zhaogeshi.com"
+//        uploadRequest.upload({ (model, error) in
+//          debugPrint(model ?? "")
+//        }, {
+//          debugPrint("upload", $0.fractionCompleted)
+//        })
+      }
+    }, {
+      debugPrint($0.fractionCompleted)
+    })
 
     return true
   }

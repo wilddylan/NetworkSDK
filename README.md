@@ -62,11 +62,60 @@ code above will send request like:
 http://192.168.199.173/call.json
 ```
 
-###### Feature
+###### Download request
+
+```swift
+Network.baseURL = "http://ocef2grmj.bkt.clouddn.com"
+
+// http://ocef2grmj.bkt.clouddn.com
+// LLWeChat-master.zip 75.8MB
+// 1083748_3.jpg 51.67kb
+
+let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+let fileURL = documentURL.appendingPathComponent("b.png")
+
+let downloadRequest = NetworkRequest<NetworkModel<Any>>("Group.png", destination: fileURL, true)
+downloadRequest.download({
+
+  if $1 == nil { //
+    print($0) 
+  }
+}, {
+  debugPrint($0.fractionCompleted)
+})
+```
+
+###### Download upload
+
+```swift
+let multipartdata: (Data, String, String, String) = (data!, "fileData", "a.png", "image/png")
+let uploadRequest = NetworkRequest<NetworkModel<Any>>("uploadResources.json", [multipartdata], ["category": "HEAD"])
+uploadRequest.baseURL = "http://your.domain.com"
+
+uploadRequest.upload({ 
+  debugPrint($0 ?? "")
+  debugPrint($1 ?? "")
+}, {
+  debugPrint("upload", $0.fractionCompleted)
+})
+
+```
+
+###### Others
+
+debug log:
+
+```swift
+Network.debug = false
+```
+
+###### Features
 
 - [x] Simple for use
 - [x] Custom request 
 - [x] Load from URLCache when remote load failed
+- [x] Simple for resuming a download request safer
+- [x] Simple upload
 
 ###### API docs
 

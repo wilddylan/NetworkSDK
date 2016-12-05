@@ -15,7 +15,7 @@ import ObjectMapper
 open class NetworkRequest<T: Mappable>: Requestable {
 
   /// HTTP Request option - pre type var
-  public var type: NetworkOption = .data
+  private(set) public var type: NetworkOption = .data
 
   /// HTTP Request parameters, default nil
   open var parameters: [String : Any]? = nil
@@ -32,17 +32,36 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// HTTP Request method, default .get, use HTTPMethod type from `Alamofire`
   open var method: Methods = .get
 
+  /// HTTP Download to URL, should be file URL
+  open var fileURL: URL?
+
+  /// HTTP Download request should resume
+  open var resuming: Bool = false
+
+  /// HTTP Upload request data set
+  open var uploadedData: [(Data, String, String, String)]?
+
+  /// HTTP Data request
   private(set) public var dataRequest: DataRequest?
 
-  /// Network result handler
+  /// HTTP Download request
+  private(set) public var downloadRequest: DownloadRequest?
+
+  /// HTTP Upload request
+  private(set) public var uploadRequest: UploadRequest?
+
+  /// Network data request result handler
   ///
   /// - Parameters:
   ///   - T: Mappable type
   ///   - Error: Response error
   public typealias NetworkHandler = (T?, Error?) ->Swift.Void
 
+  /// Download request handler
+  public typealias NetworkDownloadHandler = (Data?, Error?) ->Swift.Void
+
   /// Network response progress
-  public typealias NetworkDownloadProgress = (Progress) ->Swift.Void
+  public typealias NetworkProgressHandler = (Progress) ->Swift.Void
 
   /// Send request to server.
   ///
@@ -51,9 +70,20 @@ open class NetworkRequest<T: Mappable>: Requestable {
   ///   - progress: (Progress) ->Swift.Void
   /// - Returns: Specific type of `Request` that manages an underlying `URLSessionDataTask`.
   @discardableResult
-  open func send(_ handler: @escaping NetworkHandler) ->DataRequest{
+  open func send(_ handler: @escaping NetworkHandler) ->DataRequest?{
+    guard type == .data else {
+      // Data request shoud use send method
+      return nil
+    }
+
     dataRequest = Network.sessionManager!.request(self)
+    if Network.debug == true, let request = dataRequest {
+      debugPrint(request)
+    }
     dataRequest!.responseJSON {
+      if Network.debug == true {
+        debugPrint($0)
+      }
       switch $0.result {
       case .success(let value):
         if let response = $0.response, let request = $0.request, let data = $0.data {
@@ -75,11 +105,125 @@ open class NetworkRequest<T: Mappable>: Requestable {
         break
       }
     }
-    return dataRequest!
+    return dataRequest
+  }
+
+  /// Send download request
+  ///
+  /// - Parameters:
+  ///   - handler: download request handler
+  ///   - progressHandler: download request progress handler
+  /// - Returns: DownloadRequest, manages an underlying `URLSessionDownloadTask`.
+  @discardableResult
+  open func download(_ handler: @escaping NetworkDownloadHandler, _ progressHandler: @escaping NetworkProgressHandler) ->DownloadRequest? {
+    guard type == .download, fileURL?.isFileURL == true, let fURL = fileURL else {
+      return nil
+    }
+
+    let downloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
+      return (fURL, [.removePreviousFile, .createIntermediateDirectories])
+    }
+
+    let cacheFolder = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+    let cacheURL = cacheFolder.appendingPathComponent("resumingDataCaches/\(fURL.lastPathComponent)")
+
+    // Resum data
+    if let resumimgData = try? Data(contentsOf: cacheURL), resuming == true {
+      let cData = correctResumeData(resumimgData) ?? resumimgData
+      downloadRequest = Network.sessionManager?.download(resumingWith: cData, to: downloadDestination)
+
+      let task = downloadRequest?.task as! URLSessionDownloadTask
+      let kResumeCurrentRequest = "NSURLSessionResumeCurrentRequest"
+      let kResumeOriginalRequest = "NSURLSessionResumeOriginalRequest"
+
+      if let resumeDic = getResumeDictionary(cData) {
+        if task.originalRequest == nil, let originalReqData = resumeDic[kResumeOriginalRequest] as? Data, let originalRequest = NSKeyedUnarchiver.unarchiveObject(with: originalReqData) as? NSURLRequest {
+          task.setValue(originalRequest, forKey: "originalRequest")
+        }
+        if task.currentRequest == nil, let currentReqData = resumeDic[kResumeCurrentRequest] as? Data, let currentRequest = NSKeyedUnarchiver.unarchiveObject(with: currentReqData) as? NSURLRequest {
+          task.setValue(currentRequest, forKey: "currentRequest")
+        }
+      }
+    } else {
+      downloadRequest = Network.sessionManager?.download(self, to: downloadDestination)
+    }
+
+    if Network.debug == true, let request = downloadRequest {
+      debugPrint(request)
+    }
+    downloadRequest?.responseData {
+      if Network.debug == true {
+        debugPrint($0)
+      }
+      switch $0.result {
+      case .success(let data):
+        try? FileManager.default.removeItem(at: cacheURL)
+        handler(data, nil)
+        break
+      case .failure(let error):
+        // If resume data && resuming
+        if self.resuming == true, let rData = $0.resumeData {
+          try? FileManager.default.createDirectory(at: cacheFolder.appendingPathComponent("resumingDataCaches"), withIntermediateDirectories: true, attributes: nil)
+          try? rData.write(to: cacheURL)
+        }
+
+        handler(nil, error)
+        break
+      }
+    }.downloadProgress(closure: {
+      progressHandler($0)
+    })
+
+    return downloadRequest
+  }
+
+  open func upload(_ handler: @escaping NetworkHandler, _ progressHandler: @escaping NetworkProgressHandler) ->Swift.Void {
+    guard let data = uploadedData else {
+      return
+    }
+
+    Network.sessionManager?.upload(multipartFormData: {
+      for (fdata, fname, ffilename, ftype) in data {
+        $0.append(fdata, withName: fname, fileName: ffilename, mimeType: ftype)
+      }
+    }, with: self, encodingCompletion: {
+      switch $0 {
+      case .failure(let error):
+        handler(nil, error)
+        break
+      case .success(let upload, _, _):
+        self.uploadRequest = upload
+        if Network.debug == true, let request = self.uploadRequest {
+          debugPrint(request)
+        }
+        self.uploadRequest?.responseJSON {
+          if Network.debug == true {
+            debugPrint($0)
+          }
+          switch $0.result {
+          case .success(let value):
+            if let response = $0.response, let request = $0.request, let data = $0.data {
+              self.handleResponse(response, request, data)
+            }
+            handler(Mapper<T>().map(JSONObject: value), nil)
+            break
+          case .failure(let error):
+            handler(nil, error)
+            break
+          }
+        }
+        self.uploadRequest?.uploadProgress(closure: {
+          progressHandler($0)
+        })
+        break
+      }
+    })
   }
 
   public func cancel() {
     dataRequest?.cancel()
+    downloadRequest?.cancel()
+    uploadRequest?.cancel()
   }
 
   func handleResponse(_ response: HTTPURLResponse, _ request: URLRequest, _ data: Data) {
@@ -103,7 +247,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// - Throws: When caught error
   open func asURLRequest() throws -> URLRequest {
     guard let baseURL = try? baseURL.asURL() else {
-      return URLRequest(url: URL(string: "error://url is nil")!)
+      return URLRequest(url: URL(string: "error://url.is.nil")!)
     }
 
     var urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
@@ -131,13 +275,33 @@ open class NetworkRequest<T: Mappable>: Requestable {
   ///   - path: API path, will relativeTo to baseURL
   ///   - method: defult is .get
   ///   - parameter: default is nil
-  public init(_ path: String, _ method: Methods = .get, _ parameter: [String: Any]? = nil) {
+  public convenience init(_ path: String, _ method: Methods = .get, _ parameter: [String: Any]? = nil) {
+    self.init()
     self.path = path
     self.method = method
     self.parameters = parameter
   }
 
-  private init() {
+  /// Initialize a download requestable instance
+  ///
+  /// - Parameters:
+  ///   - path: Sources URL
+  ///   - destination: Download to fileURL
+  ///   - resume: If request has resuming data, continue download
+  public convenience init(_ path: String, destination: URL, _ resume: Bool = false) {
+    self.init(path)
+    fileURL = destination
+    resuming = resume
+    type = .download
+  }
+
+  public convenience init(_ path: String, _ data: [(Data, String, String, String)], _ parameter: [String: Any]? = nil) {
+    self.init(path, .post, parameter)
+    type = .upload
+    uploadedData = data
+  }
+
+  public init() {
 
   }
 
