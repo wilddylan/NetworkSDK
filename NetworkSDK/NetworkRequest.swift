@@ -250,7 +250,10 @@ open class NetworkRequest<T: Mappable>: Requestable {
       return URLRequest(url: URL(string: "error://url.is.nil")!)
     }
 
-    var urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
+    var urlRequest = URLRequest(url: baseURL)
+    if path.isEmpty == false {
+      urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
+    }
 
     urlRequest.httpMethod = method.rawValue
     urlRequest.timeoutInterval = timeout()
