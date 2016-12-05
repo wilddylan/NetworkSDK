@@ -99,7 +99,7 @@ public class NetworkManager {
     configuration.urlCache = URLCache.shared
 
     if sessionManager != nil {
-      delegate = nil;
+      delegate = nil
       sessionManager = nil
     }
     sessionManager = Alamofire.SessionManager(configuration: configuration, delegate: SessionDelegate(), serverTrustPolicyManager: sectrustManager)

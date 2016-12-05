@@ -80,7 +80,7 @@ public func getResumeDictionary(_ data: Data) -> NSMutableDictionary? {
 
   if iresumeDictionary == nil {
     do {
-      iresumeDictionary = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.ReadOptions(), format: nil) as? NSMutableDictionary;
+      iresumeDictionary = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.ReadOptions(), format: nil) as? NSMutableDictionary
     } catch {}
   }
 
