@@ -51,10 +51,6 @@ open class NetworkRequest<T: Mappable>: Requestable {
   private(set) public var uploadRequest: UploadRequest?
 
   /// Network data request result handler
-  ///
-  /// - Parameters:
-  ///   - T: Mappable type
-  ///   - Error: Response error
   public typealias NetworkHandler = (T?, Error?) ->Swift.Void
 
   /// Download request handler
@@ -177,6 +173,12 @@ open class NetworkRequest<T: Mappable>: Requestable {
     return downloadRequest
   }
 
+  /// Send upload request
+  ///
+  /// - Parameters:
+  ///   - handler: result handler
+  ///   - progressHandler: progress handler
+  @discardableResult
   open func upload(_ handler: @escaping NetworkHandler, _ progressHandler: @escaping NetworkProgressHandler) ->Swift.Void {
     guard let data = uploadedData, type == .upload else {
       return
@@ -220,13 +222,20 @@ open class NetworkRequest<T: Mappable>: Requestable {
     })
   }
 
+  /// Cancel current request
   public func cancel() {
     dataRequest?.cancel()
     downloadRequest?.cancel()
     uploadRequest?.cancel()
   }
 
-  func handleResponse(_ response: HTTPURLResponse, _ request: URLRequest, _ data: Data) {
+  /// Response handler, process cache and cookies
+  ///
+  /// - Parameters:
+  ///   - response: Network response
+  ///   - request: Netwoek request
+  ///   - data: response data
+  private func handleResponse(_ response: HTTPURLResponse, _ request: URLRequest, _ data: Data) {
 
     // cache policy
     if cachePolicy() == .remoteElseLocal {
@@ -298,14 +307,21 @@ open class NetworkRequest<T: Mappable>: Requestable {
     type = .download
   }
 
+  /// Initialize a upload requestable instance
+  ///
+  /// - Parameters:
+  ///   - path: path
+  ///   - data: an data tupple array
+  ///   - parameter: default is nil
   public convenience init(_ path: String, _ data: [(Data, String, String, String)], _ parameter: [String: Any]? = nil) {
     self.init(path, .post, parameter)
     type = .upload
     uploadedData = data
   }
 
+  /// Default initialized
   public init() {
-
+    
   }
 
 }

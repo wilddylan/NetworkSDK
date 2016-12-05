@@ -110,6 +110,7 @@ public enum NetworkOption {
   case upload // Unimplement
 }
 
+
 /// HTTP Request cache policy
 ///
 /// - remoteElseLocal: Remote request with failure will try get data from URLCache
