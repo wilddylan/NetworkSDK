@@ -76,7 +76,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
     if Network.debug == true, let request = dataRequest {
       debugPrint(request)
     }
-    dataRequest!.responseJSON {
+    dataRequest!.responseJSON { [unowned self] in
       if Network.debug == true {
         debugPrint($0)
       }
@@ -188,7 +188,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
       for (fdata, fname, ffilename, ftype) in data {
         $0.append(fdata, withName: fname, fileName: ffilename, mimeType: ftype)
       }
-    }, with: self, encodingCompletion: {
+    }, with: self, encodingCompletion: { [unowned self] in
       switch $0 {
       case .failure(let error):
         handler(nil, error)
@@ -198,7 +198,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
         if Network.debug == true, let request = self.uploadRequest {
           debugPrint(request)
         }
-        self.uploadRequest?.responseJSON {
+        self.uploadRequest?.responseJSON { [unowned self] in
           if Network.debug == true {
             debugPrint($0)
           }
