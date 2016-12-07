@@ -29,7 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Base config
     Network.baseURL = "http://ocef2grmj.bkt.clouddn.com"
-    let request = NetworkRequest<NetworkModel<Any>>("")
+    Network.debug = false
+
+    NetworkRequest<NetworkModel<Any>>("").send { (data, error) in
+
+    }
 
 
     // http://ocef2grmj.bkt.clouddn.com
@@ -40,22 +44,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     let fileURL = documentURL.appendingPathComponent("b.jpg")
 
-    let downloadRequest = NetworkRequest<NetworkModel<Any>>("Group.png", destination: fileURL, true)
-    downloadRequest.download({
+    let downloadRequest0 = NetworkRequest<NetworkModel<Any>>("Group.png", destination: fileURL, true)
+    let downloadRequest1 = NetworkRequest<NetworkModel<Any>>("1083748_3.jpg", destination: fileURL, true)
 
-      if $1 == nil { //
-        let multipartdata: (Data, String, String, String) = ($0!, "fileData", "a.png", "image/png")
-        let uploadRequest = NetworkRequest<NetworkModel<Any>>("uploadResources.json", [multipartdata], ["category": "HEAD"])
-        uploadRequest.baseURL = "http://your.domain.com"
-        uploadRequest.upload({ (model, error) in
-          debugPrint(model ?? "")
-        }, {
-          debugPrint("upload", $0.fractionCompleted)
-        })
-      }
-    }, {
-      debugPrint($0.fractionCompleted)
+    NetworkMultiRequest<NetworkModel<Any>>().download([downloadRequest0, downloadRequest1], handler: { object in
+      print(object)
+    }, { progress in
+      print("0:", progress.fractionCompleted)
+    }, { progress in
+      print("1:", progress.fractionCompleted)
     })
+
+
+//    downloadRequest.download({
+//
+//      if $1 == nil { //
+//        let multipartdata: (Data, String, String, String) = ($0!, "fileData", "a.png", "image/png")
+//        let uploadRequest = NetworkRequest<NetworkModel<Any>>("uploadResources.json", [multipartdata], ["category": "HEAD"])
+//        uploadRequest.baseURL = "http://your.domain.com"
+//        uploadRequest.upload({ (model, error) in
+//          debugPrint(model ?? "")
+//        }, {
+//          debugPrint("upload", $0.fractionCompleted)
+//        })
+//      }
+//    }, {
+//      debugPrint($0.fractionCompleted)
+//    })
 
     return true
   }

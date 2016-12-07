@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import ObjectMapper
 
+/// Network response progress
+public typealias NetworkProgressHandler = (Progress) ->Swift.Void
 
 /// Network request base class
 open class NetworkRequest<T: Mappable>: Requestable {
@@ -59,9 +61,6 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// Download request handler
   public typealias NetworkDownloadHandler = (Data?, Error?) ->Swift.Void
 
-  /// Network response progress
-  public typealias NetworkProgressHandler = (Progress) ->Swift.Void
-
   /// Send request to server.
   ///
   /// - Parameters:
@@ -79,7 +78,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
     if Network.debug == true, let request = dataRequest {
       debugPrint(request)
     }
-    dataRequest!.responseJSON { [unowned self] in
+    dataRequest!.responseJSON {
       switch $0.result {
       case .success(let value):
         if let response = $0.response, let request = $0.request, let data = $0.data {
@@ -185,7 +184,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
       for (fdata, fname, ffilename, ftype) in data {
         $0.append(fdata, withName: fname, fileName: ffilename, mimeType: ftype)
       }
-    }, with: self, encodingCompletion: { [unowned self] in
+    }, with: self, encodingCompletion: {
       switch $0 {
       case .failure(let error):
         handler(nil, error)
@@ -195,7 +194,7 @@ open class NetworkRequest<T: Mappable>: Requestable {
         if Network.debug == true, let request = self.uploadRequest {
           debugPrint(request)
         }
-        self.uploadRequest?.responseJSON { [unowned self] in
+        self.uploadRequest?.responseJSON {
           switch $0.result {
           case .success(let value):
             if let response = $0.response, let request = $0.request, let data = $0.data {
