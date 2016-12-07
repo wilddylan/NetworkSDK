@@ -55,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("1:", progress.fractionCompleted)
     })
 
-
 //    downloadRequest.download({
 //
 //      if $1 == nil { //

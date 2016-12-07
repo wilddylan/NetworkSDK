@@ -106,6 +106,24 @@ uploadRequest.upload({
 
 ```
 
+###### Multi download request
+
+```swift
+let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+let fileURL = documentURL.appendingPathComponent("b.jpg")
+
+let downloadRequest0 = NetworkRequest<NetworkModel<Any>>("Group.png", destination: fileURL, true)
+let downloadRequest1 = NetworkRequest<NetworkModel<Any>>("1083748_3.jpg", destination: fileURL, true)
+
+NetworkMultiRequest<NetworkModel<Any>>().download([downloadRequest0, downloadRequest1], handler: { object in
+  print(object)
+}, { progress in
+  print("0:", progress.fractionCompleted)
+}, { progress in
+  print("1:", progress.fractionCompleted)
+})
+```
+
 ###### Others
 
 debug log:
