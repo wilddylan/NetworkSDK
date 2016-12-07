@@ -105,9 +105,7 @@ public enum Methods: String {
 /// - download: download request
 /// - upload: upload request
 public enum NetworkOption {
-  case data
-  case download // Unimplement
-  case upload // Unimplement
+  case data, download, upload
 }
 
 

@@ -41,6 +41,9 @@ open class NetworkRequest<T: Mappable>: Requestable {
   /// HTTP Upload request data set
   open var uploadedData: [(Data, String, String, String)]?
 
+  /// Identifier for multi request
+  open var identifier: String = ""
+
   /// HTTP Data request
   private(set) public var dataRequest: DataRequest?
 
@@ -77,9 +80,6 @@ open class NetworkRequest<T: Mappable>: Requestable {
       debugPrint(request)
     }
     dataRequest!.responseJSON { [unowned self] in
-      if Network.debug == true {
-        debugPrint($0)
-      }
       switch $0.result {
       case .success(let value):
         if let response = $0.response, let request = $0.request, let data = $0.data {
@@ -148,9 +148,6 @@ open class NetworkRequest<T: Mappable>: Requestable {
       debugPrint(request)
     }
     downloadRequest?.responseData {
-      if Network.debug == true {
-        debugPrint($0)
-      }
       switch $0.result {
       case .success(let data):
         try? FileManager.default.removeItem(at: cacheURL)
@@ -199,9 +196,6 @@ open class NetworkRequest<T: Mappable>: Requestable {
           debugPrint(request)
         }
         self.uploadRequest?.responseJSON { [unowned self] in
-          if Network.debug == true {
-            debugPrint($0)
-          }
           switch $0.result {
           case .success(let value):
             if let response = $0.response, let request = $0.request, let data = $0.data {

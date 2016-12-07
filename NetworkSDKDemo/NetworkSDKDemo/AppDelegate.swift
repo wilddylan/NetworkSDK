@@ -29,9 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Base config
     Network.baseURL = "http://ocef2grmj.bkt.clouddn.com"
-    NetworkRequest<RequesterTested>("").send {
-      print($0?.toJSON() ?? "", $1 ?? "")
-    }
+    let request = NetworkRequest<NetworkModel<Any>>("")
+
 
     // http://ocef2grmj.bkt.clouddn.com
     // LLWeChat-master.zip 75.8MB

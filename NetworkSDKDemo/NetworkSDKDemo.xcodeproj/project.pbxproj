@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E1DF2A2158D70DCB86DBD1A /* Pods_NetworkSDKDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54D71A8C7A3D592C8A0BB8D /* Pods_NetworkSDKDemo.framework */; };
+		FC3422A71DF7D7EA00716F81 /* NetworkMultiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3422A61DF7D7EA00716F81 /* NetworkMultiRequest.swift */; };
 		FC34C0AE1DF3F96B008D94EA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = FC34C0AD1DF3F96B008D94EA /* README.md */; };
 		FC4CD3381DEBEF2300AA540F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CD3371DEBEF2300AA540F /* AppDelegate.swift */; };
 		FC4CD33A1DEBEF2300AA540F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CD3391DEBEF2300AA540F /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 		2CCEE6C68B54DCF61E2E8F49 /* Pods-NetworkSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkSDKDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkSDKDemo/Pods-NetworkSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		790033D528D0B28D82E9CEE2 /* Pods-NetworkSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkSDKDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkSDKDemo/Pods-NetworkSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B54D71A8C7A3D592C8A0BB8D /* Pods_NetworkSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC3422A61DF7D7EA00716F81 /* NetworkMultiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMultiRequest.swift; sourceTree = "<group>"; };
 		FC34C0AD1DF3F96B008D94EA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FC4CD3341DEBEF2300AA540F /* NetworkSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4CD3371DEBEF2300AA540F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		FC4CD3491DEBEF7000AA540F /* NetworkSDK */ = {
 			isa = PBXGroup;
 			children = (
+				FC3422A61DF7D7EA00716F81 /* NetworkMultiRequest.swift */,
 				FC4CD34A1DEBEF7000AA540F /* NetworkManager.swift */,
 				FC4CD34B1DEBEF7000AA540F /* NetworkModel.swift */,
 				FC4CD34C1DEBEF7000AA540F /* NetworkProtocol.swift */,
@@ -247,6 +250,7 @@
 				FC4CD34E1DEBEF7000AA540F /* NetworkManager.swift in Sources */,
 				FC4CD3501DEBEF7000AA540F /* NetworkProtocol.swift in Sources */,
 				FC34C0AE1DF3F96B008D94EA /* README.md in Sources */,
+				FC3422A71DF7D7EA00716F81 /* NetworkMultiRequest.swift in Sources */,
 				FC51D0B51DF50A7100BBABC5 /* NetworkUtil.swift in Sources */,
 				FC4CD33A1DEBEF2300AA540F /* ViewController.swift in Sources */,
 				FC4CD3511DEBEF7000AA540F /* NetworkRequest.swift in Sources */,
