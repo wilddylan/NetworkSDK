@@ -139,6 +139,7 @@ Network.debug = false
 - [x] Load from URLCache when remote load failed
 - [x] Simple for resuming a download request safer
 - [x] Simple upload
+- [X] Multi download
 
 ###### API docs
 
@@ -150,7 +151,7 @@ Network is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "NetworkSDK", "~> 0.2.3-beta"
+pod "NetworkSDK", "~> 0.2.3"
 ```
 
 dependency version: 
